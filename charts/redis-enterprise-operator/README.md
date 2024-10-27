@@ -147,3 +147,5 @@ This is a preliminary release of this Helm chart, and as of now some if its func
 - Limited testing in advanced setups such as Active-Active configurations, airgapped deployments, IPv6/dual-stack environments.
 - The chart is still unpublished in a "helm repo" or ArtifactHub, and thus can only be installed from a local source (chart directory/archive).
 - While not really a limitation, please note that this chart also installs the [admission controller](https://docs.redis.com/latest/kubernetes/deployment/quick-start/#enable-the-admission-controller) by default, and there's no option to disable it (as opposed to the non-Helm deployment).
+
+small change
