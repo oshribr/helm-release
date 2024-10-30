@@ -24,6 +24,9 @@ runs:
     
     - name: Generate HTML
       shell: python
+      env:
+        INPUT_INDEX_FILE: ${{ inputs.index_file }}
+        INPUT_OUTPUT_FILE: ${{ inputs.output_file }}
       run: |
         import yaml
         import os
@@ -166,8 +169,8 @@ runs:
         
         def main():
             # Get input parameters from environment variables
-            index_file = os.environ['INPUT_INDEX-FILE']
-            output_file = os.environ['INPUT_OUTPUT-FILE']
+            index_file = os.environ['INPUT_INDEX_FILE']
+            output_file = os.environ['INPUT_OUTPUT_FILE']
             
             try:
                 # Read and parse the index file
