@@ -1,0 +1,31 @@
+# .github/workflows/generate-helm-page.yml
+name: Generate Helm Charts Page
+
+on:
+  push:
+    paths:
+      - 'index.yaml'
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  generate-page:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed to commit the generated file
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Generate Helm Charts HTML
+        uses: ./actions/generate-helm-html-index.yaml
+        with:
+          index-file: 'index.yaml'
+          output-file: 'index.html'
+      
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git commit -m "Update Helm charts page" || exit 0  # Don't fail if no changes
+          git push
