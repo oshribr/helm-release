@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Generate Helm Charts HTML
-        uses: ./actions/generate-helm-html-index.yaml
+        uses: ./actions/generate-helm-html-index
         with:
           index-file: 'index.yaml'
           output-file: 'index.html'
