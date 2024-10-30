@@ -43,6 +43,12 @@ jobs:
           ref: gh-pages
           fetch-depth: 0
 
+      - name: debug-print
+        run: |
+          echo "Current directory is $(pwd)"
+          echo "Contents of the directory are $(ls -la)"
+          echo "Contents of the directory are $(ls -la /home/runner/work/helm-release/helm-release/)"
+
       - name: Generate Helm Charts HTML
         uses: ./generate-helm-html-index
         with:
