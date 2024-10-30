@@ -2,10 +2,10 @@
 name: Generate Helm Charts Page
 
 on:
+  workflow_dispatch:  # Allows manual trigger
   push:
     branches:
       - gh-pages
-  workflow_dispatch:  # Allows manual trigger
 
 jobs:
   generate-page:
