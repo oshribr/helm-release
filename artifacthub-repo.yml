@@ -2,3 +2,4 @@ repositoryID: 5d8686e3-f199-4668-971f-69e8764d875d
 owners: # (optional, used to claim repository ownership)
   - name: Oshri Barazani  
     email: oshri.barazani@redis.com
+    url: https://redis.com/company/contact/
