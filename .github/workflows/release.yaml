@@ -50,7 +50,7 @@ jobs:
           echo "Contents of the directory are $(ls -la /home/runner/work/helm-release/helm-release/)"
 
       - name: Generate Helm Charts HTML
-        uses: ./generate-helm-html-index
+        uses: ./.github/actions/generate-helm-html-index
         with:
           index-file: 'index.yaml'
           output-file: 'index.html'
