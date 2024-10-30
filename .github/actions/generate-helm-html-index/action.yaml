@@ -1,193 +1,139 @@
-# .github/actions/generate-helm-html-index.yaml
+# .github/actions/helm-chart-generator/action.yml
 name: 'Helm Chart HTML Generator'
 description: 'Generates a static HTML page from Helm chart index.yaml file'
+
 inputs:
-  index-file:
+  index_file:
     description: 'Path to the index.yaml file'
     required: true
     default: 'index.yaml'
-  output-file:
+  output_file:
     description: 'Output HTML file path'
-    required: false
-    default: 'helm-charts.html'
+    required: true
+    default: 'index.html'
+
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
-    - name: Set up Python
+    - name: Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
-    
-    - name: Install dependencies
+
+    - name: Install Dependencies
       shell: bash
-      run: pip install pyyaml
-    
-    - name: Generate HTML
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml
+
+    - name: Debug Inputs
+      shell: bash
+      run: |
+        echo "Input index_file: ${{ inputs.index_file }}"
+        echo "Input output_file: ${{ inputs.output_file }}"
+
+    - name: Run Generator Script
       shell: python
       env:
-        INPUT_INDEX_FILE: ${{ inputs.index_file }}
-        INPUT_OUTPUT_FILE: ${{ inputs.output_file }}
+        INDEX_FILE: ${{ inputs.index_file }}
+        OUTPUT_FILE: ${{ inputs.output_file }}
       run: |
-        import yaml
         import os
-        from datetime import datetime
         import sys
+        import yaml
+        from datetime import datetime
         
-        def read_index_file(file_path):
-            """Read and parse the index.yaml file."""
-            try:
-                with open(file_path, 'r') as file:
-                    return yaml.safe_load(file)
-            except FileNotFoundError:
-                print(f"Error: File '{file_path}' not found!")
-                sys.exit(1)
-            except yaml.YAMLError as e:
-                print(f"Error parsing YAML file: {e}")
-                sys.exit(1)
-            except Exception as e:
-                print(f"Unexpected error reading file: {e}")
-                sys.exit(1)
+        # Debug information
+        print("Environment variables:")
+        for key, value in os.environ.items():
+            if key.startswith(('INDEX_', 'OUTPUT_')):
+                print(f"{key}: {value}")
         
-        def generate_html(index_data):
-            """Generate HTML content from the index data."""
-            html = """
+        # Get input parameters directly from environment
+        index_file = os.environ['INDEX_FILE']
+        output_file = os.environ['OUTPUT_FILE']
+        
+        print(f"\nWorking directory: {os.getcwd()}")
+        print(f"Looking for index file: {index_file}")
+        print(f"Will write to output file: {output_file}")
+        print(f"Directory contents: {os.listdir()}")
+        
+        # Verify input file exists
+        if not os.path.exists(index_file):
+            print(f"Error: Index file '{index_file}' not found!")
+            print(f"Absolute path attempted: {os.path.abspath(index_file)}")
+            sys.exit(1)
+        
+        # Read YAML file
+        try:
+            with open(index_file, 'r') as f:
+                data = yaml.safe_load(f)
+        except Exception as e:
+            print(f"Error reading YAML file: {e}")
+            sys.exit(1)
+        
+        # Generate HTML
+        html = f"""
         <!DOCTYPE html>
-        <html lang="en">
+        <html>
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Helm Charts Repository</title>
             <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    line-height: 1.6;
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 20px;
-                }
-                .chart {
-                    border: 1px solid #ddd;
-                    margin: 20px 0;
-                    padding: 20px;
-                    border-radius: 5px;
-                }
-                .chart-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-                .chart-icon {
-                    max-width: 100px;
-                    height: auto;
-                }
-                .version {
-                    background: #f5f5f5;
-                    padding: 15px;
-                    margin: 10px 0;
-                    border-radius: 5px;
-                }
-                .metadata {
-                    color: #666;
-                    font-size: 0.9em;
-                }
-                .download-btn {
+                body {{ font-family: Arial, sans-serif; margin: 40px auto; max-width: 1200px; padding: 0 20px; }}
+                .chart {{ border: 1px solid #ddd; margin: 20px 0; padding: 20px; border-radius: 8px; }}
+                .chart-header {{ display: flex; align-items: center; justify-content: space-between; }}
+                .chart-icon {{ max-width: 100px; }}
+                .version {{ background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }}
+                .download-btn {{ 
                     display: inline-block;
                     padding: 10px 20px;
-                    background-color: #0066cc;
+                    background: #0066cc;
                     color: white;
                     text-decoration: none;
                     border-radius: 5px;
                     margin-top: 10px;
-                }
-                .download-btn:hover {
-                    background-color: #0052a3;
-                }
+                }}
+                .download-btn:hover {{ background: #0052a3; }}
             </style>
         </head>
         <body>
             <h1>Helm Charts Repository</h1>
-            """
-            
-            # Sort entries by chart name
-            for chart_name, versions in sorted(index_data.get('entries', {}).items()):
-                html += f'<div class="chart">'
-                
-                # Get the latest version (assuming versions are sorted)
-                latest_version = versions[0]
-                
-                # Chart header with icon
-                html += '<div class="chart-header">'
-                html += f'<h2>{chart_name}</h2>'
-                if 'icon' in latest_version:
-                    html += f'<img src="{latest_version["icon"]}" alt="{chart_name} icon" class="chart-icon">'
-                html += '</div>'
-                
-                # Chart description
-                if 'description' in latest_version:
-                    html += f'<p>{latest_version["description"]}</p>'
-                
-                # Display each version
-                for version in versions:
-                    html += f'<div class="version">'
-                    html += f'<h3>Version {version["version"]}</h3>'
-                    
-                    # Metadata
-                    html += '<div class="metadata">'
-                    if 'appVersion' in version:
-                        html += f'<p>App Version: {version["appVersion"]}</p>'
-                    if 'created' in version:
-                        created_date = datetime.strptime(version["created"].split(".")[0], "%Y-%m-%dT%H:%M:%S")
-                        html += f'<p>Created: {created_date.strftime("%Y-%m-%d %H:%M:%S")}</p>'
-                    if 'maintainers' in version:
-                        maintainers = ", ".join(f'<a href="{m.get("url", "#")}">{m["name"]}</a>' 
-                                              for m in version["maintainers"])
-                        html += f'<p>Maintainers: {maintainers}</p>'
-                    html += '</div>'
-                    
-                    # Download link
-                    if 'urls' in version and version['urls']:
-                        download_url = version['urls'][0]
-                        html += f'<a href="{download_url}" class="download-btn">Download Chart</a>'
-                    
-                    html += '</div>'
-                
-                html += '</div>'
-            
-            html += """
+        """
+        
+        # Add chart entries
+        for chart_name, versions in data.get('entries', {}).items():
+            for version in versions:
+                html += f"""
+                <div class="chart">
+                    <div class="chart-header">
+                        <h2>{chart_name}</h2>
+                        {f'<img src="{version["icon"]}" class="chart-icon" alt="Chart icon">' if 'icon' in version else ''}
+                    </div>
+                    <p>{version.get('description', '')}</p>
+                    <div class="version">
+                        <h3>Version {version['version']}</h3>
+                        <p>App Version: {version.get('appVersion', 'N/A')}</p>
+                        <p>Created: {version.get('created', 'N/A')}</p>
+                        <a href="{version['urls'][0]}" class="download-btn">Download Chart</a>
+                    </div>
+                </div>
+                """
+        
+        html += f"""
             <footer>
-                <p>Generated by GitHub Actions on {}</p>
-                <p>Repository: {}</p>
+                <p>Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
             </footer>
         </body>
         </html>
-            """.format(
-                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                os.environ.get('GITHUB_REPOSITORY', 'Unknown')
-            )
-            
-            return html
+        """
         
-        def main():
-            # Get input parameters from environment variables
-            index_file = os.environ['INPUT_INDEX_FILE']
-            output_file = os.environ['INPUT_OUTPUT_FILE']
-            
-            try:
-                # Read and parse the index file
-                index_data = read_index_file(index_file)
-                
-                # Generate HTML content
-                html_content = generate_html(index_data)
-                
-                # Write the HTML file
-                with open(output_file, 'w') as f:
-                    f.write(html_content)
-                
-                print(f"::notice::HTML page generated successfully: {output_file}")
-                
-            except Exception as e:
-                print(f"::error::Failed to generate HTML: {str(e)}")
-                sys.exit(1)
-        
-        if __name__ == "__main__":
-            main()
+        # Write HTML file
+        try:
+            with open(output_file, 'w') as f:
+                f.write(html)
+            print(f"Successfully generated {output_file}")
+        except Exception as e:
+            print(f"Error writing HTML file: {e}")
+            sys.exit(1)
