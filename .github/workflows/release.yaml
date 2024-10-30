@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0      
 
@@ -30,3 +30,29 @@ jobs:
         uses: helm/chart-releaser-action@v1.5.0
         env:
           CR_TOKEN: "${{ github.token }}"
+
+  generate-page:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed to commit the generated file
+    needs: 
+      - release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Generate Helm Charts HTML
+        uses: ./generate-helm-html-index
+        with:
+          index-file: 'index.yaml'
+          output-file: 'index.html'
+      
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git commit -m "Update Helm charts page" || exit 0  # Don't fail if no changes
+          git push
