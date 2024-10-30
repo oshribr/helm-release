@@ -1,8 +1,19 @@
 # .github/workflows/generate-helm-page.yml
 name: Generate Helm Charts Page
 
-on:
-  workflow_dispatch:  # Allows manual trigger
+on: 
+  workflow_dispatch:    # Manual trigger
+    inputs:            # Define inputs for manual trigger
+      index_file:
+        description: 'Path to index.yaml file'
+        required: false
+        default: 'index.yaml'
+        type: string
+      output_file:
+        description: 'Output HTML file name'
+        required: false
+        default: 'index.html'
+        type: string
   push:
     branches:
       - gh-pages
