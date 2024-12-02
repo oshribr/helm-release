@@ -1,58 +1,5 @@
 apiVersion: v1
 entries:
   redis-enterprise-operator:
-  - apiVersion: v2
-    appVersion: 7.8.2-1
-    created: "2024-12-02T14:10:47.637347304Z"
-    description: A Helm chart for Redis Enterprise Operator for Kubernetes
-    digest: 91899c9d59f09420ec70830b66b780471ae5a79a3059acb9e011a19561e49075
-    home: https://redis.io
-    icon: https://redis.io/wp-content/uploads/2024/04/Logotype.svg
-    keywords:
-    - redis
-    - database
-    maintainers:
-    - name: Redis
-      url: https://redis.com/company/contact/
-    name: redis-enterprise-operator
-    type: application
-    urls:
-    - https://github.com/oshribr/helm-release/releases/download/redis-enterprise-operator-7.8.2-1/redis-enterprise-operator-7.8.2-1.tgz
-    version: 7.8.2-1
-  - apiVersion: v2
-    appVersion: 7.4.2-15
-    created: "2024-12-02T14:07:03.960167805Z"
-    description: A Helm chart for Redis Enterprise Operator for Kubernetes
-    digest: 7ce892195010fdd4798b624ea79b6f906057e2ed6ef6de7bee27983bf43ff0a5
-    home: https://redis.io
-    icon: https://redis.io/wp-content/uploads/2024/04/Logotype.svg
-    keywords:
-    - redis
-    - database
-    maintainers:
-    - name: Redis
-      url: https://redis.com/company/contact/
-    name: redis-enterprise-operator
-    type: application
-    urls:
-    - https://github.com/oshribr/helm-release/releases/download/redis-enterprise-operator-7.4.2-15/redis-enterprise-operator-7.4.2-15.tgz
-    version: 7.4.2-15
-  - apiVersion: v2
-    appVersion: 7.4.2-2
-    created: "2024-12-02T13:59:13.046060077Z"
-    description: A Helm chart for Redis Enterprise Operator for Kubernetes
-    digest: dc8c116af01a9f524fc6403ceead4952f68f63f34a10ddce33b7588dca45e63d
-    home: https://redis.io
-    icon: https://redis.io/wp-content/uploads/2024/04/Logotype.svg
-    keywords:
-    - redis
-    - database
-    maintainers:
-    - name: Redis
-      url: https://redis.com/company/contact/
-    name: redis-enterprise-operator
-    type: application
-    urls:
-    - https://github.com/oshribr/helm-release/releases/download/redis-enterprise-operator-7.4.2-2/redis-enterprise-operator-7.4.2-2.tgz
-    version: 7.4.2-2
+
 generated: "2024-12-02T14:10:47.63746873Z"
