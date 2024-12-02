@@ -4,8 +4,8 @@ type: application
 name: redis-enterprise-operator
 description: A Helm chart for Redis Enterprise Operator for Kubernetes
 
-version: 7.4.2-15
-appVersion: 7.4.2-15
+version: 7.4.2-21
+appVersion: 7.4.2-21
 
 home: https://redis.io
 icon: https://redis.io/wp-content/uploads/2024/04/Logotype.svg
