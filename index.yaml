@@ -5,9 +5,6 @@ entries:
       artifacthub.io/changes: |
         - kind: changed
           description: you can find the changedlog in link
-          links:
-            - name: CHANGELOG
-              url: "https://redis.io/docs/latest/operate/kubernetes/release-notes/"
     apiVersion: v2
     appVersion: 7.8.4-12
     created: "2025-03-16T17:47:22.234103736Z"
@@ -84,9 +81,6 @@ entries:
       artifacthub.io/changes: |
         - kind: changed
           description: you can find the changedlog in link
-          links:
-            - name: CHANGELOG
-              url: "https://redis.io/docs/latest/operate/kubernetes/release-notes/"
     apiVersion: v2
     appVersion: 7.2.4-12
     created: "2025-03-16T17:24:28.499147144Z"
