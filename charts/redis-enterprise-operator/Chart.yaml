@@ -3,8 +3,8 @@ annotations:
     - kind: changed
       description: you can find the changedlog in link
       links:
-        name: CHANGELOG
-        url: https://redis.io/docs/latest/operate/kubernetes/release-notes/
+        - name: CHANGELOG
+          url: https://redis.io/docs/latest/operate/kubernetes/release-notes/
 
 apiVersion: v2
 type: application
