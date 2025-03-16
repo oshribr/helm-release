@@ -4,7 +4,7 @@ annotations:
       description: you can find the changedlog in link
       links:
         - name: CHANGELOG
-          url: https://redis.io/docs/latest/operate/kubernetes/release-notes/
+          url: "https://redis.io/docs/latest/operate/kubernetes/release-notes/"
 
 apiVersion: v2
 type: application
