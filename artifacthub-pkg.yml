@@ -1,0 +1,7 @@
+
+changes: # (optional - it is also possible to provide a list of strings with just the descriptions instead of using objects)
+  - kind: changed # Supported kinds are: added, changed, deprecated, removed, fixed and security
+    description: Note that the chart versions match the software versions
+    links:
+      - name: changedlog
+        url: https://redis.io/docs/latest/operate/kubernetes/release-notes/
