@@ -9,6 +9,37 @@ entries:
           description: The full release notes are available here. Note that the chart versions match the software versions
         - kind: added
           description: The full release notes are available here. 1
+        - kind: added
+          description: The full release notes are available here link
+          links:
+            - name: changedlog
+              url: https://redis.io/docs/latest/operate/kubernetes/release-notes/
+    apiVersion: v2
+    appVersion: 7.12.4-12
+    created: "2025-03-17T07:51:37.524390714Z"
+    description: A Helm chart for Redis Enterprise Operator for Kubernetes
+    digest: 561a15597645e4f8b0304c4e7ef1eff8730c69c5f5460c30db54bac1649a9226
+    home: https://redis.io
+    icon: https://redis.io/wp-content/uploads/2024/04/Logotype.svg
+    keywords:
+    - redis
+    - database
+    maintainers:
+    - name: Redis
+      url: https://redis.com/company/contact/
+    name: redis-enterprise-operator
+    type: application
+    urls:
+    - https://github.com/oshribr/helm-release/releases/download/redis-enterprise-operator-7.12.4-12/redis-enterprise-operator-7.12.4-12.tgz
+    version: 7.12.4-12
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: you can find the changedlog in link
+        - kind: added
+          description: The full release notes are available here. Note that the chart versions match the software versions
+        - kind: added
+          description: The full release notes are available here. 1
     apiVersion: v2
     appVersion: 7.11.4-12
     created: "2025-03-17T07:42:21.266700253Z"
@@ -127,7 +158,6 @@ entries:
     urls:
     - https://github.com/oshribr/helm-release/releases/download/redis-enterprise-operator-7.4.2-15/redis-enterprise-operator-7.4.2-15.tgz
     version: 7.4.2-15
-
   - apiVersion: v2
     appVersion: 7.2.4-12
     created: "2025-03-16T17:24:28.499147144Z"
@@ -146,4 +176,4 @@ entries:
     urls:
     - https://github.com/oshribr/helm-release/releases/download/redis-enterprise-operator-7.2.4-12/redis-enterprise-operator-7.2.4-12.tgz
     version: 7.2.4-12
-generated: "2025-03-17T07:42:21.266733715Z"
+generated: "2025-03-17T07:51:37.524429977Z"
