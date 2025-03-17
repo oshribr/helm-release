@@ -5,9 +5,9 @@ entries:
       artifacthub.io/changes: |
         - kind: changed
           description: you can find the changedlog in link
-        - kind: add
+        - kind: added
           description: The full release notes are available here. Note that the chart versions match the software versions
-        - kind: add
+        - kind: added
           description: The full release notes are available here. 1
     apiVersion: v2
     appVersion: 7.11.4-12
@@ -127,11 +127,8 @@ entries:
     urls:
     - https://github.com/oshribr/helm-release/releases/download/redis-enterprise-operator-7.4.2-15/redis-enterprise-operator-7.4.2-15.tgz
     version: 7.4.2-15
-  - annotations:
-      artifacthub.io/changes: |
-        - kind: changed
-          description: you can find the changedlog in link
-    apiVersion: v2
+
+  - apiVersion: v2
     appVersion: 7.2.4-12
     created: "2025-03-16T17:24:28.499147144Z"
     description: A Helm chart for Redis Enterprise Operator for Kubernetes
