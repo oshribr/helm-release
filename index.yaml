@@ -62,7 +62,7 @@ entries:
       artifacthub.io/changes: |
         - kind: changed
           description: you can find the changedlog in link
-        - kind: add
+        - kind: added
           description: The full release notes are available here. Note that the chart versions match the software versions
     apiVersion: v2
     appVersion: 7.10.4-12
